@@ -2,6 +2,7 @@ package br.edu;
 
 public class Sapo {
 
+    private static final int DESCANSO_MAXIMO = 1000;
     private static final int PULO_MAXIMO = 50;
 
     private final Podio podio;
@@ -35,10 +36,15 @@ public class Sapo {
 
     public void iniciarCorrida(){
 
-        do {
-            pular();
-            printarSituacao();
-        }while (this.distanciaPercorrida < this.distanciaTotal);
+        try {
+            do {
+                pular();
+                printarSituacao();
+                descansar();
+            }while (this.distanciaPercorrida < this.distanciaTotal);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
         podio.adicionarPodio(this);
     }
@@ -58,6 +64,14 @@ public class Sapo {
                 .replace(":sapo", this.nomeSapo)
                 .replace(":pulo", this.tamanhoPuloAtual.toString())
                 .replace(":total", this.distanciaPercorrida.toString()));
+    }
+
+    private void descansar(){
+        try {
+            Thread.sleep((int) (Math.random() * DESCANSO_MAXIMO));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }
