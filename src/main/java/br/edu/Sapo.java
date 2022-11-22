@@ -4,7 +4,7 @@ public class Sapo {
 
     private static final int PULO_MAXIMO = 50;
 
-    private static Integer posicaoFinal = 0;
+    private final Podio podio;
 
     private final String nomeSapo;
 
@@ -16,12 +16,21 @@ public class Sapo {
 
     private Integer qtdePulos;
 
-    public Sapo(String nomeSapo, Integer distanciaTotal) {
+    public Sapo(String nomeSapo, Integer distanciaTotal, Podio podio) {
         this.nomeSapo = nomeSapo;
         this.distanciaTotal = distanciaTotal;
         this.distanciaPercorrida = 0;
         this.tamanhoPuloAtual = 0;
         this.qtdePulos = 0;
+        this.podio = podio;
+    }
+
+    public String getNomeSapo() {
+        return nomeSapo;
+    }
+
+    public Integer getQtdePulos() {
+        return qtdePulos;
     }
 
     public void iniciarCorrida(){
@@ -31,7 +40,7 @@ public class Sapo {
             printarSituacao();
         }while (this.distanciaPercorrida < this.distanciaTotal);
 
-        printarColocacao();
+        podio.adicionarPodio(this);
     }
 
     private void pular(){
@@ -49,14 +58,6 @@ public class Sapo {
                 .replace(":sapo", this.nomeSapo)
                 .replace(":pulo", this.tamanhoPuloAtual.toString())
                 .replace(":total", this.distanciaPercorrida.toString()));
-    }
-
-    private synchronized void printarColocacao(){
-        posicaoFinal++;
-        System.out.println("O :sapo foi o :posicao colocado com :pulos pulos"
-                .replace(":sapo", this.nomeSapo)
-                .replace(":posicao", posicaoFinal.toString())
-                .replace(":pulos", this.qtdePulos.toString()));
     }
 
 }

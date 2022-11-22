@@ -10,13 +10,19 @@ public class Main {
     private static final int QTDE_SAPOS = 4;
 
     public static void main(String[] args) {
+
+        Podio podio = new Podio();
+
         ExecutorService executor = Executors.newFixedThreadPool(QTDE_THREADS);
         for (int i = 0; i < QTDE_SAPOS; i++) {
             int finalI = i;
-            executor.execute(() -> new Sapo("Sapo " + finalI, TAMANHO_CORRIDA).iniciarCorrida());
+            executor.execute(() -> new Sapo("Sapo " + finalI, TAMANHO_CORRIDA, podio).iniciarCorrida());
         }
 
         executor.shutdown();
+        while (!executor.isTerminated());
+
+        podio.printarPodio();
     }
 
 }
