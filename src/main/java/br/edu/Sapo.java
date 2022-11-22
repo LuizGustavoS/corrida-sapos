@@ -36,15 +36,11 @@ public class Sapo {
 
     public void iniciarCorrida(){
 
-        try {
-            do {
-                pular();
-                printarSituacao();
-                descansar();
-            }while (this.distanciaPercorrida < this.distanciaTotal);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+        do {
+            pular();
+            printarSituacao();
+            descansar();
+        }while (this.distanciaPercorrida < this.distanciaTotal);
 
         podio.adicionarPodio(this);
     }
