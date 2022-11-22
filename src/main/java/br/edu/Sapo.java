@@ -2,14 +2,15 @@ package br.edu;
 
 public class Sapo {
 
-    private static final int DESCANSO_MAXIMO = 1000;
-    private static final int PULO_MAXIMO = 50;
-
-    private final Podio podio;
-
     private final String nomeSapo;
 
+    private final Integer puloMaximo;
+
+    private final Integer descansoMaximo;
+
     private final Integer distanciaTotal;
+
+    private final Podio podio;
 
     private Integer distanciaPercorrida;
 
@@ -17,13 +18,15 @@ public class Sapo {
 
     private Integer qtdePulos;
 
-    public Sapo(String nomeSapo, Integer distanciaTotal, Podio podio) {
+    public Sapo(String nomeSapo, Integer puloMaximo, Integer descansoMaximo, Integer distanciaTotal, Podio podio) {
         this.nomeSapo = nomeSapo;
+        this.puloMaximo = puloMaximo;
+        this.descansoMaximo = descansoMaximo;
         this.distanciaTotal = distanciaTotal;
+        this.podio = podio;
         this.distanciaPercorrida = 0;
         this.tamanhoPuloAtual = 0;
         this.qtdePulos = 0;
-        this.podio = podio;
     }
 
     public String getNomeSapo() {
@@ -34,7 +37,7 @@ public class Sapo {
         return qtdePulos;
     }
 
-    public void iniciarCorrida(){
+    public void iniciarCorrida() {
 
         do {
             pular();
@@ -45,9 +48,9 @@ public class Sapo {
         podio.adicionarPodio(this);
     }
 
-    private void pular(){
+    private void pular() {
         this.qtdePulos++;
-        this.tamanhoPuloAtual = (int) (Math.random() * PULO_MAXIMO);
+        this.tamanhoPuloAtual = (int) (Math.random() * puloMaximo);
 
         this.distanciaPercorrida += this.tamanhoPuloAtual;
         if (this.distanciaPercorrida >= this.distanciaTotal){
@@ -55,16 +58,16 @@ public class Sapo {
         }
     }
 
-    private void printarSituacao(){
+    private void printarSituacao() {
         System.out.println("O :sapo pulou :pulo cm e já percorreu uma distancia de :total"
                 .replace(":sapo", this.nomeSapo)
                 .replace(":pulo", this.tamanhoPuloAtual.toString())
                 .replace(":total", this.distanciaPercorrida.toString()));
     }
 
-    private void descansar(){
+    private void descansar() {
         try {
-            Thread.sleep((int) (Math.random() * DESCANSO_MAXIMO));
+            Thread.sleep((int) (Math.random() * descansoMaximo));
         }catch (Exception e){
             e.printStackTrace();
         }
